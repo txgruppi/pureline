@@ -37,6 +37,17 @@ function git_segment {
     local fg_color="$2"
     local content="${PL_SYMBOLS[git_branch]} $git_branch"
 
+    if [ "${PL_GIT_TAG:-true}" = true ]; then
+	    git_tag="$(git tag --points-at HEAD 2>/dev/null)"
+	    if [ -n "$git_tag" ]; then
+		    if [ "$git_branch" == "HEAD" ]; then
+			    content="${PL_SYMBOLS[git_branch]} $git_tag"
+		    else
+			    content+= " $git_tag"
+		    fi
+	    fi
+    fi
+
     if [ "$PL_GIT_STASH" = true ]; then
         local number_stash
         number_stash="$(git stash list 2>/dev/null | grep -F -v -c 'fatal:' | tr -d '[:space:]')"
