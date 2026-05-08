@@ -43,7 +43,7 @@ function git_segment {
 		    if [ "$git_branch" == "HEAD" ]; then
 			    content="${PL_SYMBOLS[git_branch]} $git_tag"
 		    else
-			    content+= " $git_tag"
+			    content+=" $git_tag"
 		    fi
 	    fi
     fi
